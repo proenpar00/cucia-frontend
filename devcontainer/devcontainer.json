@@ -1,0 +1,16 @@
+{
+    "name": "Node.js",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "args": {"VARIANT": "21"}
+    },
+    //
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+    },
+
+    //
+    "extensions": [
+        "dbaeumer.vscode-eslint"
+    ]
+}
