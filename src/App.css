@@ -1,38 +1,117 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Estilos generales para centrar el contenido */
+.app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  position: relative;
+  padding-top: 70px; /* Espacio para la navbar */
 }
 
-.App-link {
-  color: #61dafb;
+/* Navbar - Barra de navegación */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar-logo .logo-icon {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar-links a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #555;
+  font-size: 16px;
+}
+
+.navbar-links a:hover {
+  color: #000;
+}
+
+.title-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  color: #888;
+}
+
+/* Estilo para el input y el botón de cargar imagen */
+.upload-container {
+  margin-bottom: 20px;
+}
+
+.file-input {
+  display: none;
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.custom-file-upload:hover {
+  background-color: #f0f0f0;
+}
+
+.load-model-btn {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.load-model-btn:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.load-model-btn:hover:enabled {
+  background-color: #555;
+}
+
+/* Previsualización de la imagen */
+.image-preview {
+  max-width: 400px;
+  max-height: 400px;
+  margin-bottom: 20px;
+  object-fit: contain;
+  border-radius: 10px;
+}
+.logo-image {
+  height: 50px; /* Ajusta el tamaño según sea necesario */
+  width: auto;  /* Mantiene la proporción de la imagen */
 }
