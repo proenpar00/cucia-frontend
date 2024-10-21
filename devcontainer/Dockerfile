@@ -1,15 +1,14 @@
-# Usa una imagen base de Python
-FROM mcr.microsoft.com/vscode/devcontainers/python:3.9
+FROM node:21
 
-# Instala dependencias adicionales, si es necesario
-# RUN apt-get update && apt-get install -y <paquetes>
+WORKDIR /app
 
-# Establece el directorio de trabajo
-WORKDIR /workspace
+COPY package.json .
+COPY package-lock.json .
 
-# Copia los archivos de tu proyecto al contenedor
+RUN npm install
+
 COPY . .
 
-# Ejecuta cualquier comando de instalación necesario
-# Si usas un archivo requirements.txt, esto se puede hacer en el postCreateCommand
-# RUN pip install -r requirements.txt
+EXPOSE 3001
+
+CMD npm start
