@@ -34,7 +34,7 @@ const App = () => {
 
     try {
       console.log("Enviando imagen al backend...");
-      const response = await axios.post('http://localhost:3000/api/v1/image', formData, {
+      const response = await axios.post('https://cucia-service.onrender.com/api/v1/image', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -64,7 +64,7 @@ const App = () => {
     setLoading(true);
     try {
       console.log("Solicitando diagnóstico del backend para la imagen con ID:", imageId);
-      const response = await axios.get(`http://localhost:3000/api/v1/image/${imageId}`);
+      const response = await axios.get(`https://cucia-service.onrender.com/api/v1/image/${imageId}`);
       console.log("Respuesta del diagnóstico recibida:", response.data);
 
       const base64Image = response.data.base64;
