@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './App.css'; // Asegúrate de tener tus estilos
+import './App.css';
 import Navbar from './NavBar';
 import ImageUploader from './ImageUploader';
 import ImagePreview from './ImagePreview';
 import DiagnosisButton from './DiagnosisButton';
+import DiagnosisResult from './DiagnosisResult'; // Importar el nuevo componente
 
 const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12,6 +13,7 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [imageId, setImageId] = useState(null);
+  const [detections, setDetections] = useState([]);  // Nuevo estado para almacenar las detecciones
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -34,7 +36,7 @@ const App = () => {
 
     try {
       console.log("Enviando imagen al backend...");
-      const response = await axios.post('https://cucia-service.onrender.com/api/v1/image', formData, {
+      const response = await axios.post('http://localhost:3000/api/v1/image', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -64,12 +66,14 @@ const App = () => {
     setLoading(true);
     try {
       console.log("Solicitando diagnóstico del backend para la imagen con ID:", imageId);
-      const response = await axios.get(`https://cucia-service.onrender.com/api/v1/image/${imageId}`);
+      const response = await axios.get(`http://localhost:3000/api/v1/image/${imageId}`);
       console.log("Respuesta del diagnóstico recibida:", response.data);
 
       const base64Image = response.data.base64;
+      const detections = response.data.detections;  // Obtener las detecciones del backend
       if (base64Image) {
         setPreviewUrl(`data:image/jpeg;base64,${base64Image}`);
+        setDetections(detections);  // Guardar las detecciones en el estado
         console.log("Diagnóstico cargado y transformado en imagen.");
       } else {
         console.error("Error: No se recibió una imagen en base64 válida.");
@@ -85,13 +89,20 @@ const App = () => {
   return (
     <div className="app-container">
       <Navbar />
-      <ImagePreview previewUrl={previewUrl} />
-      <ImageUploader onImageChange={handleImageChange} />
-      <DiagnosisButton 
-        modelLoaded={modelLoaded} 
-        onClick={modelLoaded ? handleShowDiagnosis : handleLoadModel} 
-        loading={loading} 
-      />
+      <div className="content-container">
+        <div className="left-panel">
+          <ImagePreview previewUrl={previewUrl} />
+          <ImageUploader onImageChange={handleImageChange} />
+          <DiagnosisButton 
+            modelLoaded={modelLoaded} 
+            onClick={modelLoaded ? handleShowDiagnosis : handleLoadModel} 
+            loading={loading} 
+          />
+        </div>
+        <div className="right-panel">
+          <DiagnosisResult detections={detections} /> {/* Mostrar las detecciones */}
+        </div>
+      </div>
     </div>
   );
 };
